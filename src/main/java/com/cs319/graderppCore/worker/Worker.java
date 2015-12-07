@@ -1,4 +1,4 @@
-package com.cs319.graderppCore.worker
+package com.cs319.graderppCore.worker;
 
 public class Worker {
     private String submissionID;
