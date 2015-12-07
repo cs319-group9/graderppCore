@@ -5,10 +5,10 @@ import com.cs319.graderppCore.utils.Util;
 import org.glassfish.jersey.media.multipart.ContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 
-import javax.activation.MimeType;
 import javax.ws.rs.*;
 import java.io.File;
 import java.io.InputStream;
+import javax.ws.rs.core.MediaType;
 
 /**
  * Created by reink on 12/7/15.
@@ -17,8 +17,8 @@ import java.io.InputStream;
 public class Submission {
 
     @POST
-    @Consumes(MimeType.MULTIPART_FORM_DATA)
-    @Produces(MimeType.TEXT_PLAIN)
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @Produces(MediaType.TEXT_PLAIN)
     public String uploadSubmission(
             @PathParam("submissionID") String submissionID,
             @FormDataParam("file") InputStream inputStream,
