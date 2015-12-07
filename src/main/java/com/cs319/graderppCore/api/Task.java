@@ -1,5 +1,7 @@
 package com.cs319.graderppCore.api;
 
+import com.cs319.graderppCore.utils.Constants;
+import com.cs319.graderppCore.utils.Util;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 
@@ -12,7 +14,6 @@ import java.io.*;
  */
 @Path("task/{taskID}")
 public class Task {
-    private static final String SERVER_UPLOAD_LOCATION_FOLDER = "/home/reink/cs319/test/";
 
     @POST
     @Path("compile")
@@ -22,10 +23,10 @@ public class Task {
             @FormDataParam("file") InputStream inputStream,
             @FormDataParam("file")FormDataContentDisposition dispHandler,
             @PathParam("taskID") String taskID) {
-        String location = SERVER_UPLOAD_LOCATION_FOLDER + "task/" + taskID + "/compile/";
+        String location = Constants.BASE_PATH + "task/" + taskID + "/compile/";
         File f = new File(location);
         f.mkdirs();
-        saveFile(inputStream, location + dispHandler.getFileName());
+        Util.saveFile(inputStream, location + dispHandler.getFileName());
 
         return "";
     }
@@ -39,10 +40,10 @@ public class Task {
             @FormDataParam("file")FormDataContentDisposition dispHandler,
             @PathParam("taskID") String taskID,
             @PathParam("inputID") String inputID) {
-        String location = SERVER_UPLOAD_LOCATION_FOLDER + "task/" + taskID + "/input/";
+        String location = Constants.BASE_PATH + "task/" + taskID + "/input/";
         File f = new File(location);
         f.mkdirs();
-        saveFile(inputStream, location + "inp" + inputID + ".txt");
+        Util.saveFile(inputStream, location + "inp" + inputID + ".txt");
 
         return "";
     }
@@ -57,33 +58,12 @@ public class Task {
             @FormDataParam("file")FormDataContentDisposition dispHandler,
             @PathParam("taskID") String taskID,
             @PathParam("outputID") String outputID) {
-        String location = SERVER_UPLOAD_LOCATION_FOLDER + "task/" + taskID + "/output/";
+        String location = Constants.BASE_PATH + "task/" + taskID + "/output/";
         File f = new File(location);
         f.mkdirs();
-        saveFile(inputStream, location + "out" + outputID + ".txt");
+        Util.saveFile(inputStream, location + "out" + outputID + ".txt");
 
         return "";
-    }
-
-    // save uploaded file to a defined location on the server
-    private void saveFile(InputStream uploadedInputStream,
-                          String serverLocation) {
-
-        File f = new File(serverLocation);
-        try {
-            OutputStream outpuStream = new FileOutputStream(f);
-            int read = 0;
-            byte[] bytes = new byte[1024];
-
-            while ((read = uploadedInputStream.read(bytes)) != -1) {
-                outpuStream.write(bytes, 0, read);
-            }
-            outpuStream.flush();
-            outpuStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
     }
 }
 
