@@ -10,22 +10,59 @@ import java.io.*;
 /**
  * Created by reink on 12/7/15.
  */
-@Path("task")
+@Path("task/{taskID}")
 public class Task {
     private static final String SERVER_UPLOAD_LOCATION_FOLDER = "/home/reink/cs319/test/";
 
     @POST
-    @Path("{taskID}/compile")
+    @Path("compile")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.TEXT_PLAIN)
     public String uploadCompileFiles(
             @FormDataParam("file") InputStream inputStream,
             @FormDataParam("file")FormDataContentDisposition dispHandler,
             @PathParam("taskID") String taskID) {
-        String location = SERVER_UPLOAD_LOCATION_FOLDER + "task/" + taskID + "/compile/" + dispHandler.getFileName();
-        saveFile(inputStream, location);
+        String location = SERVER_UPLOAD_LOCATION_FOLDER + "task/" + taskID + "/compile/";
+        File f = new File(location);
+        f.mkdirs();
+        saveFile(inputStream, location + dispHandler.getFileName());
 
-        return "yarrak";
+        return "";
+    }
+
+    @POST
+    @Path("input/{inputID}")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String uploadInput(
+            @FormDataParam("file") InputStream inputStream,
+            @FormDataParam("file")FormDataContentDisposition dispHandler,
+            @PathParam("taskID") String taskID,
+            @PathParam("inputID") String inputID) {
+        String location = SERVER_UPLOAD_LOCATION_FOLDER + "task/" + taskID + "/input/";
+        File f = new File(location);
+        f.mkdirs();
+        saveFile(inputStream, location + "inp" + inputID + ".txt");
+
+        return "";
+    }
+
+
+    @POST
+    @Path("output/{outputID}")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String uploadOutput(
+            @FormDataParam("file") InputStream inputStream,
+            @FormDataParam("file")FormDataContentDisposition dispHandler,
+            @PathParam("taskID") String taskID,
+            @PathParam("outputID") String outputID) {
+        String location = SERVER_UPLOAD_LOCATION_FOLDER + "task/" + taskID + "/output/";
+        File f = new File(location);
+        f.mkdirs();
+        saveFile(inputStream, location + "out" + outputID + ".txt");
+
+        return "";
     }
 
     // save uploaded file to a defined location on the server
@@ -33,7 +70,6 @@ public class Task {
                           String serverLocation) {
 
         File f = new File(serverLocation);
-        f.mkdirs();
         try {
             OutputStream outpuStream = new FileOutputStream(f);
             int read = 0;
@@ -50,3 +86,4 @@ public class Task {
 
     }
 }
+
