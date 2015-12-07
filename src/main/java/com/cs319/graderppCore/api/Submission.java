@@ -28,5 +28,6 @@ public class Submission {
         f.mkdirs();
 
         Util.saveFile(inputStream, folder + submissionID + ".cpp");
+        return "";
     }
 }
