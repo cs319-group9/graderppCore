@@ -1,7 +1,7 @@
 FROM ubuntu:14.04
 USER root
 RUN apt-get update && apt-get -y install \
-	gcc g++ python make pip
+	python python-dev python-distribute python-pip g++ make
 RUN pip install json
 RUN mkdir -p /isolate
 RUN mkdir -p /dropzone

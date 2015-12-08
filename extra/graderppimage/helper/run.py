@@ -31,3 +31,9 @@ if __name__ == "__main__":
         p.wait()
         p = subprocess.Popen(["./isolate", "--time=1", "--mem=300000", "--run", "--", "./a.out"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=WORK_DIR)
         out, err = p.communicate()
+        print "out"
+        print out
+        print "err"
+        print err
+        print "status"
+        print p.returncode
