@@ -20,10 +20,12 @@ public class Worker {
         randStr = randomStringGenerate();
         Environment container = new Environment();
 
-        String compileFolder = Constants.BASE_PATH + "task/" + taskID + "/compile:/tmp/" + randStr + "/task/" + taskID + "/compile";
-        String inputFolder = Constants.BASE_PATH + "task/" + taskID + "/input:/tmp/" + randStr + "/task/" + taskID + "/input";
-        String outputFolder = Constants.BASE_PATH + "task/" + taskID + "/output:/tmp/" + randStr + "/task/" + taskID + "/output";
-        String submissionFile = com.cs319.graderppCore.utils.Constants.BASE_PATH + "submission/" + submissionID + ".cpp:/tmp/" + randStr + "/submission/" + submissionID + ".cpp;
+        String compileFolder = Constants.BASE_PATH + "task/" + taskID + "/compile:/tmp/compile";
+        String inputFolder = Constants.BASE_PATH + "task/" + taskID + "/input:/tmp/input";
+        String outputFolder = Constants.BASE_PATH + "task/" + taskID + "/output:/tmp/output";
+        String submissionFile = Constants.BASE_PATH + "submission/code.cpp:/tmp/submission/code.cpp";
+        String shellFile = Constants.BASE_PATH + "helper/run.sh:/dropzone/run.sh";
+        String libPyFile = Constants.BASE_PATH + "helper/lib.py:/dropzone/lib.py";
 
         container.addRunParameter("-v");
         container.addRunParameter(compileFolder);
@@ -36,9 +38,18 @@ public class Worker {
 
         container.addRunParameter("-v");
         container.addRunParameter(submissionFile);
+        container.addRunParameter("-v");
+        container.addRunParameter(shellFile);
+        container.addRunParameter("-v");
+        container.addRunParameter(libPyFile);
+
+        container.addRunParameter("-w");
+        container.addRunParameter("/dropzone");
 
 
-        container.addRunParameter
+        container.addRunParameter("amatem/graderpp");
+        container.addRunParameter("sh");
+        container.addRunParameter("run.sh");
 
 
     }
