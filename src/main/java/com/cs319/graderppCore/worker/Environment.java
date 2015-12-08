@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 public class Environment{
 
     private String stdOutVal ="", stdErrorVal="";
-    private String[] commands = {"docker","run"};
+    private String[] commands = {"docker","run", "--privileged"};
     // "-v", "/home/scanozulku/workspace/cs319/localdropfolder:/dropzone", "-w", "/dropzone", "amatem/graderpp", "sh", };
 
     public void addRunParameter(String s){
@@ -30,7 +30,9 @@ public class Environment{
     protected void runEvaluator () throws IOException {
 
         Runtime rt = Runtime.getRuntime();
-
+        for(int i = 0; i < commands.length; i++)
+            System.out.print(commands[i] + " ");
+        System.out.println();
         Process proc = rt.exec(commands);
 
         //docker run --privileged -v /home/workspace/cs319/localdropfolder:/dropzone -w /dropzone amatem/graderpp ./asd.sh

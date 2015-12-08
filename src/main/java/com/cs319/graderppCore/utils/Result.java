@@ -10,7 +10,7 @@ public class Result {
     private String  compileLog;
     private int[] grade_log;
     private int[] memory;
-    private int[] time;
+    private double[] time;
 
     public Result() {
     }
@@ -47,11 +47,11 @@ public class Result {
         this.memory = memory;
     }
 
-    public int[] getTime() {
+    public double[] getTime() {
         return time;
     }
 
-    public void setTime(int[] time) {
+    public void setTime(double[] time) {
         this.time = time;
     }
 }
